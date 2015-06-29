@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 2015.27.6, 23:57:00
     Author     : janis
 */
@@ -11,14 +11,125 @@ and open the template in the editor.
     margin:0px;
     padding:0px;
 }
+
+@media (min-width: 1200px) {
+    #container {
+        width: 1170px;
+    }
+    .div-row{
+        width: 30%;
+        margin-left: 3%;
+        display: inline-block;
+    }
+    .div-row:first-child {
+        margin-left: 0;
+    }
+    .div-row a{
+        float: left;
+        color: rgb(208, 88, 3);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .mobile{
+        display: none !important;
+    }
+}
+@media (max-width: 767px){
+    #container{
+        width: auto;
+    }
+    .non-mobile{
+        display: none !important;
+    }
+    .div-row{
+        width: 100%;
+        margin-top:20px;
+    }
+    #main_menu li a{
+        display: list-item;
+    }
+    #main_menu li {
+        width:100%;
+        margin-top:2px;
+    }
+
+}
 body{
     margin:0;
+    background-image: url(../img/scribble_light.png);
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+    background-color: #fff;
+}
+a:link{
+    text-decoration: none;
+}
+h1{
+    margin:2px;
+    line-height: 65px;
+}
+h4{
+    font-weight: normal;
+    font-style: normal;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 21px;
+    line-height: 50px;
+}
+hr{
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
 }
 #container{
     margin-top:50px;
     margin-left: auto;
     margin-right:auto;
-    width: 1170px;
+    background-color: white;
+}
+#head{
+    overflow: hidden;
+    padding:40px;
+    padding-left: 60px;
+}
+#div_logo{
+    margin-top: 45px;
+    float: left;
+    display: block;
+}
+.nav-menu{
+    display: block;
+    float: right;
+    margin-top: 75px;
+}
+#div_site_title {
+    font-family: Syncopate;
+    font-size: 30px;
+    line-height: 49px;
+    color: rgb(224, 95, 3);
+    text-shadow: rgba(0, 0, 0, 0.0980392) 0px 3px 5px, rgba(255, 255, 255, 0.298039) 0px -5px 35px;
+    letter-spacing: 4px;
+    font-weight: normal;
+    font-style: normal;
+    text-transform: uppercase;
+    display:table-caption;
+}
+#div_tag_line {
+    color: rgb(150, 150, 150);
+    line-height: 24px;
+    text-transform: none;
+    letter-spacing: 4px;
+    font-size: 16px;
+    padding-left: 2px;
+    padding-right: 2px;
+    background-color: transparent;
+    text-shadow: none;
+    font-family: Abel;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: initial;
 }
 #main_menu{
     float: left;
@@ -29,10 +140,65 @@ body{
 }
 #main_menu li {
     float: left;
-    width: 6em;
-    text-decoration: none;
-    color: white;
-    background-color: green;
-    padding: 0.2em 0.6em;
-    border-right: 1px solid white;
+    font-family: 'Pontano Sans';
+    font-size: 15px;
+    line-height: 17px;
+}
+#main_menu li a{
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    color: rgb(41, 41, 41);
+}
+#main_menu li a:hover{
+    color: rgb(255, 255, 255);
+    background-color: #e05f03;
+}
+#div_page_content{
+    padding:40px;
+    line-height: 25px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#div_page_content p {
+    text-indent: 40px;
+}
+.div-rows{
+    width: 100%;
+}
+@media (min-width: 1200px){
+
+}
+@media (min-width: 767px){
+
+}
+
+.box{
+    text-indent: 0px;
+    text-align: center;
+
+}
+.box i{
+    font-size: 50px;
+    color: #E05F03;
+}
+
+#div_footer_separator{
+    margin-top: 10px;
+}
+#div_footer{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: rgb(122, 12, 12);
+    color: rgb(211, 211, 211);
+    font-family: Actor, sans-serif;
+    text-transform: none;
+    font-size: 12px;
+    letter-spacing: 0px;
+    line-height: 22px;
+    background-image: url(../img/tactile_noise.png);
+    background-repeat: repeat repeat;
+    padding: 40px;
 }

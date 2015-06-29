@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'info@index');
-Route::get('/html', 'info@html');
+Route::get('/', 'info@html');
+Route::get('/index', 'info@html');
 
