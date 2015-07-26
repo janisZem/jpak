@@ -202,3 +202,9 @@ hr{
     background-repeat: repeat repeat;
     padding: 40px;
 }
+.edit-button{
+    display: inline-block;
+    float:right; 
+    margin-top:-30px;
+    cursor: pointer;
+}

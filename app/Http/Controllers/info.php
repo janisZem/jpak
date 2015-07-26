@@ -14,10 +14,11 @@ class info extends Controller {
      * @return Response
      */
     public function index() {
-        return view('master');
+        return "olol";
+        //return view('master');
     }
     
-    public function html(){
+    public function html(){        
         return view('html');
     }
 

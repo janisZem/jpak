@@ -4,7 +4,8 @@
 @stop
 @section('content')
 <div id="div_page_content">
-    <h1>Labdien,</h1>
+    <div id="1">
+    <h1>Labdien,</h1><div class="edit-button" onclick="PAGE.PARGRAPH.editH1(this)">Labot</div>
     <p>
         Mani sauc Anna Bērziņa, Saule ir gandrīz pilnīga lode, tās
         diametrs ir 1,392×106 km (109 reizes lielāks par Zemes diametru).
@@ -14,6 +15,7 @@
         tās centra līdz fotosfēras galējām robežām, kur gāzes temperatūra ir pārāk maza,
         lai radītu ievērojamu elektromagnētisko starojumu.
     </p>
+    </div>
     <br>
     <div class="div-rows">
         <div class="div-row box">
