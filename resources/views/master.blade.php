@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ URL::asset('/css/style.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}"/>
         <link href="http://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -33,7 +34,7 @@
                 Copyright © 2015 i-sitemas.lv all rights reserved.
             </div>
         </div>
-        <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
         <script src="{{ URL::asset('/scripts/jquery.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
     </body>
 </html>

@@ -16,15 +16,20 @@ Route::get('/index', 'info@html');
 Route::get('/form/', function() {
     return View::make('olol');
 });
-Route::post('/save', function() {
-    $data = new App\Olol;
-    $data->name = Input::get("name");
-    $data->email = Input::get("email");
-    $data->password = Hash::make(Input::get("psw"));
-    $data->save();
-});
+/* Route::post('/save', function() {
+  $data = new App\Olol;
+  $data->name = Input::get("name");
+  $data->email = Input::get("email");
+  $data->password = Hash::make(Input::get("psw"));
+  $data->save();
+  }); */
+
+Route::post('save', 'test@save');
 
 Route::get('/allusers', 'test@test');
+
+
+
 Route::get('/delete/{id}', function($id) {
     $data = App\Olol::find($id);
     if ($data) {
@@ -34,3 +39,8 @@ Route::get('/delete/{id}', function($id) {
         return "cant find";
     }
 });
+
+Route::post('/save_paragraph', 'paragraphController@store');
+
+
+

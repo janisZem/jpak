@@ -27,7 +27,7 @@ class MakeOlol extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('users');
+        Schema::drop('olol');
     }
 
 }

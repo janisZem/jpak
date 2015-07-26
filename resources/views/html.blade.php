@@ -4,17 +4,17 @@
 @stop
 @section('content')
 <div id="div_page_content">
-    <div id="1">
-    <h1>Labdien,</h1><div class="edit-button" onclick="PAGE.PARGRAPH.editH1(this)">Labot</div>
-    <p>
-        Mani sauc Anna Bērziņa, Saule ir gandrīz pilnīga lode, tās
-        diametrs ir 1,392×106 km (109 reizes lielāks par Zemes diametru).
-        Saules masa ir tik liela, ka Saules sistēmas masas centrs atrodas Saules iekšienē.
-        Saulei nav tik noteiktu robežu kā, piemēram, planētam, jo tās blīvums pakāpeniski
-        eksponenciāli samazinās virzienā no tās centra. Saules rādiuss (R) tiek mērīts no
-        tās centra līdz fotosfēras galējām robežām, kur gāzes temperatūra ir pārāk maza,
-        lai radītu ievērojamu elektromagnētisko starojumu.
-    </p>
+    <div class="paragraph" id="13">
+        <h1 class>Labdien,</h1>
+        <p>
+            Mani sauc Anna Bērziņa, Saule ir gandrīz pilnīga lode, tās
+            diametrs ir 1,392×106 km (109 reizes lielāks par Zemes diametru).
+            Saules masa ir tik liela, ka Saules sistēmas masas centrs atrodas Saules iekšienē.
+            Saulei nav tik noteiktu robežu kā, piemēram, planētam, jo tās blīvums pakāpeniski
+            eksponenciāli samazinās virzienā no tās centra. Saules rādiuss (R) tiek mērīts no
+            tās centra līdz fotosfēras galējām robežām, kur gāzes temperatūra ir pārāk maza,
+            lai radītu ievērojamu elektromagnētisko starojumu.
+        </p>
     </div>
     <br>
     <div class="div-rows">
