@@ -16,7 +16,8 @@ class paragraphController extends Controller {
      * @return Response
      */
     public function index() {
-        //
+        $paragraphs = Paragraph::all();
+        return view('html', compact('paragraphs'));
     }
 
     /**
@@ -45,6 +46,7 @@ class paragraphController extends Controller {
         $data->title = Input::get("title");
         $data->content = Input::get("content");
         $data->save();
+        return $data->id;
     }
 
     /**

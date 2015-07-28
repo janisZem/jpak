@@ -11,8 +11,8 @@
   |
  */
 
-Route::get('/', 'info@html');
-Route::get('/index', 'info@html');
+Route::get('/', 'paragraphController@index');
+Route::get('/index', 'paragraphController@index');
 Route::get('/form/', function() {
     return View::make('olol');
 });
