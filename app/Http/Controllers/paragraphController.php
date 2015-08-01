@@ -86,8 +86,10 @@ class paragraphController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy() {
+        $data = Paragraph::find(Input::get("id"));
+        $data->delete();
+        return "OK";
     }
 
 }

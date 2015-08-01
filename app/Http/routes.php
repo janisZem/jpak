@@ -42,5 +42,7 @@ Route::get('/delete/{id}', function($id) {
 
 Route::post('/save_paragraph', 'paragraphController@store');
 
+Route::post('/delete_paragraph', 'paragraphController@destroy');
+
 
 
