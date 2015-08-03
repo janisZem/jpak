@@ -224,7 +224,7 @@ hr{
     width: 100px;
 }
 .new-paragraph-submit{
-    width:70px;
+    margin:5px;
 }
 .paragraph p{
     padding-right: 90px;
@@ -233,4 +233,10 @@ hr{
 #edit_p_textarea{
     width:80%; 
     height:300px;
+}
+.edit-row{
+    cursor: pointer
+}
+#edit_row_text{
+    height:200px;
 }

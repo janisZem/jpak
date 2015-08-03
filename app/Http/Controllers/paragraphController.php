@@ -35,11 +35,11 @@ class paragraphController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
+    public function store() {
         $data = Paragraph::find(Input::get("id"));
         if (!$data) {
             $data = new Paragraph;
-            $data->type = 'P';
+            $data->type = Input::get("t");
             $data->uid_create = 1;
             $data->uid_edit = 1;
         }

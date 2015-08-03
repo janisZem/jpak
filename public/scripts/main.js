@@ -11,11 +11,11 @@ var PAGE = {
     PARGRAPH: {
         addNew: function () { /* creates paragraph inputs */
             var html = '<div class="new-form">'
-                    + '     <input type="text" class="new-paragraph-input"><br>'
-                    + '     <textarea class="new-paragraph-textarea"></textarea>'
-                    + '     <div onclick="PAGE.PARGRAPH.store()" class="button new-paragraph-submit">Pievienot</div>'
+                    + '     <input type="text" class="new-paragraph-input form-control"><br>'
+                    + '     <textarea id="edit_p_textarea" class="form-control new-paragraph-textarea"></textarea>'
+                    + '     <div onclick="PAGE.PARGRAPH.store()" class="new-paragraph-submit btn btn-default">Pievienot</div>'
                     + ' </div>';
-            $('.paragraph').last().after(html);
+            $('#par_div').append(html);
             $('#new_paragraph').hide();
         },
         store: function () { /* saves new paragraph */
@@ -27,7 +27,8 @@ var PAGE = {
                     + '&content='
                     + $('.new-paragraph-textarea').val()
                     + '&_token='
-                    + PAGE.token;
+                    + PAGE.token
+                    + '&t=P';
             $.ajax({
                 type: "POST",
                 url: "save_paragraph",
@@ -38,25 +39,26 @@ var PAGE = {
                             + '     <h1 onmouseover="PAGE.PARGRAPH.showEdit(event)">' + $('.new-paragraph-input').val() + '</h1>'
                             + '     <p onmouseover="PAGE.PARGRAPH.showEdit(event)">' + $('.new-paragraph-textarea').val() + '</p>'
                             + ' </div>';
-                    $('.paragraph').last().after(elem);
+                    $('#par_div').append(elem);
                     $('.new-form').remove();
                     $('#new_paragraph').show();
                 }
             }, "json");
         },
         edit: function (elem) { /* creates edit inputs */
-            console.log("taisīšu inputus elem = ");
-            console.log(elem);
+
             $('.paragraph').children('h1,p').off('mouseover');
-            $(elem).text("Saglabāt");
             var $elem = $(elem).parent('div');
+            var id = $elem.attr('id');
             if ($(elem).hasClass("h1-edit")) {
+                $(elem).hide();
                 var $h1 = $($elem.children('h1'));
                 $h1.hide();
-                $elem.children().first().before('<input id="edit_title_input" type="text" value="' + $h1.text() + '">');
+                $elem.children().first().before(PAGE.PARGRAPH.drawH1Edit($h1.text(), id));
             } else if ($(elem).hasClass('p-edit')) {
+                $(elem).text('Saglabāt');
+                $(elem).attr("id", 'save_edit_' + id);
                 var $p = $($elem.children('p'));
-                console.log($p.text());
                 $p.hide();
                 $elem.children().first().after('<textarea id="edit_p_textarea">' + $p.text() + '</textarea>');
             }
@@ -64,49 +66,45 @@ var PAGE = {
         },
         save: function (elem) { /* update pragagraph */
 
-            console.log(elem);
-            $(elem).text("Labot");
-            var $elem = $(elem).parent('div');
+            var title = "", p = "";
+            var id = elem.id.split('_')[2];
+            var parent = $('#' + id);
+            var $elem = parent;
             var $h1 = $($elem.children('h1'));
             var $p = $($elem.children('p'));
-            var title = "";
-            var p = "";
-
             if ($(elem).hasClass('h1-edit')) {
-
-                title = $elem.children('input').val();
-                p = $elem.children('p').text();
-                $h1.text($elem.children('input').val());
+                title = $('#h1_edit_input').val().trim();
+                p = $elem.children('p').text().trim();
+                $h1.text(title);
                 $h1.show();
-                $('#edit_title_input').remove();
+                $('.h1-edit-row').remove();
             } else if ($(elem).hasClass('p-edit')) {
-                console.log('im here');
-                title = $elem.children('h1').text();
-                p = $elem.children('textarea').text();
-                console.log(p);
-                $p.text($elem.children('textarea').text());
+                $(elem).text("Labot");
+                title = $elem.children('h1').text().trim();
+                p = $elem.children('textarea').val().trim();
+                $p.text(p);
                 $p.show();
                 $('#edit_p_textarea').remove();
             }
 
-
-            if (p === "" || $elem.children('input').val() === "") {
-                return; //display error
+            if (p === "" || title === "") {
+                return; //display some error
             }
+
             var dataString = 'title=' + title
                     + '&content='
                     + p
                     + '&_token='
                     + PAGE.token
                     + '&id='
-                    + $elem.attr('id');
+                    + $elem.attr('id')
+                    + '&t=P';
             //console.log(dataString);
             $.ajax({
                 type: "POST",
                 url: "save_paragraph",
                 data: dataString,
                 success: function (data) {
-                    //console.log(data);
                 }
             }, "json");
             $(elem).attr("onclick", "PAGE.PARGRAPH.edit(this)");
@@ -129,7 +127,6 @@ var PAGE = {
         },
         delete: function (elem) {
             var id = $(elem).parent('div').attr('id');
-            console.log(id);
             var dataString = 'id=' + id
                     + '&_token='
                     + PAGE.token;
@@ -144,7 +141,69 @@ var PAGE = {
                     }
                 }
             }, "json");
+        },
+        drawH1Edit: function (text, id) {
+            return  '<div class="row h1-edit-row">'
+                    + '<div class="col-lg-6">'
+                    + '   <div class="input-group">'
+                    + '       <input id="h1_edit_input" type="text" value="' + text + '" class="form-control" aria-label="...">'
+                    + '       <div class="input-group-btn">'
+                    + '           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Iespējas '
+                    + '               <span class="caret"></span>'
+                    + '           </button>'
+                    + '           <ul class="dropdown-menu dropdown-menu-right">'
+                    + '               <li><a id="save_edit_' + id + '"class="h1-edit" onclick="PAGE.PARGRAPH.save(this)">Salgabāt</a></li>'
+                    + '               <li role="separator" class="divider"></li>'
+                    + '               <li><a>Atcelt</a></li>'
+                    + '           </ul>'
+                    + '       </div>'
+                    + ' </div>'
+                    + ' </div>'
+                    + '</div>';
         }
+    },
+    ROW: {
+        edit: function (elem) {
+            var id = elem.id.split('_')[3];
+            var $parent = $('#edit_row_' + id);
+            $parent.children('h4').hide();
+            $parent.children('p').hide();
+            $parent.children('a').hide();
+            $parent.children('.fa').after(PAGE.ROW.drawEditFields($parent));
+        },
+        save: function (elem) {
+            console.log(elem);
+
+            var title = $('#edit_row_title').val().trim();
+            var p = $('#edit_row_text').val().trim();
+            var id = $(elem).attr('id').split('_')[2];
+            var dataString = 'title=' + title
+                    + '&content='
+                    + p
+                    + '&_token='
+                    + PAGE.token
+                    + '&id=' + id
+                    + '&t=R';
+            console.log(dataString);
+            $.ajax({
+                type: "POST",
+                url: "save_paragraph",
+                data: dataString,
+                success: function (data) {
+                }
+            }, "json");
+        },
+        drawEditFields: function ($parent) {
+            $parent.children('h4');
+            return '<div id="edit_row_inputs_' + $parent.attr('id') + '">'
+                    + '<input value="' + $parent.children('h4').text() + '" type="text" id="edit_row_title" class="form-control" placeholder="Virsraksts"><br>'
+                    + '<textarea id="edit_row_text" placeholder="Rinkopa" class="form-control">' + $parent.children('p').text() + '</textarea><br>'
+                    + '<input value="' + $parent.children('a').first().text() + '" placeholder="URL virsraksts" type="text" id="edit_row_labal" class="form-control"><br>'
+                    + '<input placeholder="URL" type="text" value="' + $parent.children('a').first().attr('href') + '" id="edit_row_url" class="form-control" a><br>'
+                    + '<div onclick="PAGE.ROW.save(' + $parent.attr('id') + ')" class="new-paragraph-submit btn btn-default">Saglabāt</div>'
+                    + '</div>';
+        }
+
     }
 };
 PAGE.init();
