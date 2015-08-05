@@ -24,8 +24,13 @@
             <hr>
             <p>
                 {{$row->content}}
-            </p>            
-            <a href="#">Uzzināt vairāk »</a>
+            </p>
+            @foreach( $row->attrs as $attr )
+
+            <a href="{{ $attr->name == 'ROW_URL' ? $attr->value : '' }}">
+                {{ $attr->name == 'ROW_URL_TEXT' ? $attr->value : '' }}
+            </a>
+            @endforeach            
             <br>
             <a id="edit_row_id_{{$row->id}}" class="edit-row"onclick="PAGE.ROW.edit(this)">Labot elementu</a>
         </div>

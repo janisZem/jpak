@@ -145,6 +145,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         'Collective\Html\HtmlServiceProvider',
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 

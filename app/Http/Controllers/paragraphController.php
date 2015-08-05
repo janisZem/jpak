@@ -19,7 +19,7 @@ class paragraphController extends Controller {
      */
     public function index() {
         $data['paragraphs'] = DB::table('paragraph')->where('type', 'P')->get();
-        $data['rows'] = DB::table('paragraph')->where('type', 'R')->get();
+        $data['rows'] = Paragraph::with('attrs')->where('type', 'R')->get();
         return view('html', $data);
     }
 
