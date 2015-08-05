@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Paragraph;
+use App\Paragraph_attrs;
 use Input;
+use DB;
 
 class paragraphController extends Controller {
 
@@ -16,8 +18,9 @@ class paragraphController extends Controller {
      * @return Response
      */
     public function index() {
-        $paragraphs = Paragraph::all();
-        return view('html', compact('paragraphs'));
+        $data['paragraphs'] = DB::table('paragraph')->where('type', 'P')->get();
+        $data['rows'] = DB::table('paragraph')->where('type', 'R')->get();
+        return view('html', $data);
     }
 
     /**
@@ -46,6 +49,15 @@ class paragraphController extends Controller {
         $data->title = Input::get("title");
         $data->content = Input::get("content");
         $data->save();
+        /* update paragraph type = row custum parameters */
+        if ('R' == Input::get("t")) {
+            Paragraph_attrs::where('par_id', Input::get("id"))
+                    ->where('name', 'ROW_URL_TEXT')
+                    ->update(['value' => Input::get("urlText")]);
+            Paragraph_attrs::where('par_id', Input::get("id"))
+                    ->where('name', 'ROW_URL')
+                    ->update(['value' => Input::get("url")]);
+        }
         return $data->id;
     }
 

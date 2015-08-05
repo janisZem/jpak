@@ -17,7 +17,21 @@
     </div>
     <div id="new_paragraph" class="button">Jauns ieraksts</div>
     <div class="div-rows">
-        <div id="edit_row_1" class="div-row box">
+        @foreach( $rows as $row )
+        <div id="edit_row_{{ $row->id}}" class="div-row box">
+            <i class="fa fa-gavel"></i>
+            <h4>{{ $row->title}}</h4>
+            <hr>
+            <p>
+                {{$row->content}}
+            </p>            
+            <a href="#">Uzzināt vairāk »</a>
+            <br>
+            <a id="edit_row_id_{{$row->id}}" class="edit-row"onclick="PAGE.ROW.edit(this)">Labot elementu</a>
+        </div>
+        @endforeach
+
+        <!--<div id="edit_row_1" class="div-row box">
             <i class="fa fa-gavel"></i>
             <h4>Juridiskie pakalpojumi</h4>
             <hr>
@@ -55,7 +69,7 @@
             <a href="#">Uzzināt vairāk »</a>
             <a id="edit_row_id_1" class="edit-row"onclick="PAGE.ROW.edit(this)">Labot elementu</a>
             <br>
-        </div>
+        </div> -->
     </div>
 </div>
 @stop

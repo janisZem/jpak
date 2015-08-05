@@ -166,6 +166,7 @@ var PAGE = {
         edit: function (elem) {
             var id = elem.id.split('_')[3];
             var $parent = $('#edit_row_' + id);
+            console.log('test ' + $parent);
             $parent.children('h4').hide();
             $parent.children('p').hide();
             $parent.children('a').hide();
@@ -183,19 +184,28 @@ var PAGE = {
                     + '&_token='
                     + PAGE.token
                     + '&id=' + id
-                    + '&t=R';
+                    + '&t=R'
+                    + '&urlText=' + $('#edit_row_labal').val()
+                    + '&url=' + $('#edit_row_url').val();
             console.log(dataString);
             $.ajax({
                 type: "POST",
                 url: "save_paragraph",
                 data: dataString,
                 success: function (data) {
+                    var $parent = $('#edit_row_' + id);
+                    $parent.children('h4').show().text($('#edit_row_title').val());
+
+                    $parent.children('p').show().text($('#edit_row_text').val());
+                    $parent.children('a').show();
+                    $parent.children('a').first().text($('#edit_row_labal').val());
+                    $parent.children('a').first().attr('href', $('#edit_row_url').val())
+                    $('#edit_row_inputs_' + id).remove();
                 }
             }, "json");
         },
         drawEditFields: function ($parent) {
-            $parent.children('h4');
-            return '<div id="edit_row_inputs_' + $parent.attr('id') + '">'
+            return '<div id="edit_row_inputs_' + $parent.attr('id').split('_')[2] + '">'
                     + '<input value="' + $parent.children('h4').text() + '" type="text" id="edit_row_title" class="form-control" placeholder="Virsraksts"><br>'
                     + '<textarea id="edit_row_text" placeholder="Rinkopa" class="form-control">' + $parent.children('p').text() + '</textarea><br>'
                     + '<input value="' + $parent.children('a').first().text() + '" placeholder="URL virsraksts" type="text" id="edit_row_labal" class="form-control"><br>'
