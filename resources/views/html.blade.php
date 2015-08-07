@@ -15,8 +15,11 @@
         <br>
         @endforeach
     </div>
+    @if (Auth::check())
     <div id="new_paragraph" class="button">Jauns ieraksts</div>
+    @endif
     <div class="div-rows">
+        <?php $i = 0; ?>
         @foreach( $rows as $row )
         <div id="edit_row_{{ $row->id}}" class="div-row box">
             <i class="fa fa-gavel"></i>
@@ -25,14 +28,25 @@
             <p>
                 {{$row->content}}
             </p>
-            @foreach( $row->attrs as $attr )
 
-            <a href="{{ $attr->name == 'ROW_URL' ? $attr->value : '' }}">
-                {{ $attr->name == 'ROW_URL_TEXT' ? $attr->value : '' }}
+            @foreach( $row->attrs as $attr )
+            <?php
+            if ($attr->name == 'ROW_URL') {
+                $href = $attr->value;
+            }
+            if ($attr->name == 'ROW_URL_TEXT') {
+                $label = $attr->value;
+            }
+            ?>
+            @endforeach 
+            <a href="{{ $href }}">
+                {{ $label }}
             </a>
-            @endforeach            
+
             <br>
+            @if (Auth::check()) 
             <a id="edit_row_id_{{$row->id}}" class="edit-row"onclick="PAGE.ROW.edit(this)">Labot elementu</a>
+            @endif
         </div>
         @endforeach
 

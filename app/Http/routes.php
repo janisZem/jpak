@@ -23,6 +23,13 @@ Route::get('/form/', function() {
   $data->password = Hash::make(Input::get("psw"));
   $data->save();
   }); */
+Route::get('lg', function() {
+    return view('login');
+});
+Route::post('auth/login', 'Auth\AuthController@authenticate');
+Route::get('/lt', function() {
+    Auth::logout();
+});
 
 Route::post('save', 'test@save');
 

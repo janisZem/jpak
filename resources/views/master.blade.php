@@ -34,10 +34,12 @@
             <div id="div_footer">
                 Copyright © 2015 i-sitemas.lv all rights reserved.
             </div>
-        
+
         </div>
         <script src="{{ URL::asset('/scripts/jquery.js') }}" type="text/javascript"></script>
-        <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
+        <?php if (Auth::check()) { ?>
+            <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
+        <?php } ?>
         <script src="{{ URL::asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     </body>
 </html>

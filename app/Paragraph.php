@@ -10,7 +10,7 @@ class Paragraph extends Model {
     protected $table = 'paragraph';
 
     public function attrs() {
-        return $this->hasMany('App\Paragraph_attrs', 'par_id');
+        return $this->hasMany('App\Paragraph_attrs', 'par_id')->distinct();
     }
 
 }

@@ -166,15 +166,12 @@ var PAGE = {
         edit: function (elem) {
             var id = elem.id.split('_')[3];
             var $parent = $('#edit_row_' + id);
-            console.log('test ' + $parent);
             $parent.children('h4').hide();
             $parent.children('p').hide();
             $parent.children('a').hide();
             $parent.children('.fa').after(PAGE.ROW.drawEditFields($parent));
         },
         save: function (elem) {
-            console.log(elem);
-
             var title = $('#edit_row_title').val().trim();
             var p = $('#edit_row_text').val().trim();
             var id = $(elem).attr('id').split('_')[2];
@@ -187,7 +184,6 @@ var PAGE = {
                     + '&t=R'
                     + '&urlText=' + $('#edit_row_labal').val()
                     + '&url=' + $('#edit_row_url').val();
-            console.log(dataString);
             $.ajax({
                 type: "POST",
                 url: "save_paragraph",
@@ -195,11 +191,10 @@ var PAGE = {
                 success: function (data) {
                     var $parent = $('#edit_row_' + id);
                     $parent.children('h4').show().text($('#edit_row_title').val());
-
                     $parent.children('p').show().text($('#edit_row_text').val());
                     $parent.children('a').show();
                     $parent.children('a').first().text($('#edit_row_labal').val());
-                    $parent.children('a').first().attr('href', $('#edit_row_url').val())
+                    $parent.children('a').first().attr('href', $('#edit_row_url').val());
                     $('#edit_row_inputs_' + id).remove();
                 }
             }, "json");
