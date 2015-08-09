@@ -20,7 +20,7 @@ class paragraphController extends Controller {
     public function index() {
         $data['paragraphs'] = DB::table('paragraph')->where('type', 'P')->get();
         $data['rows'] = Paragraph::where('type', 'R')->get();
-        return view('html', $data);
+        return view('index', $data);
     }
 
     /**

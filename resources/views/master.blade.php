@@ -21,11 +21,12 @@
                 </div>
                 <nav class="nav-menu">
                     <ul id="main_menu">
-                        <li><a href="#">Sākums</a></li>
-                        <li><a href="#">Juridiskie pakalpojumi</a></li>
-                        <li><a href="#">Projektu vadība</a></li>
-                        <li><a href="#">Jautājumi & atbildes</a></li>
-                        <li><a href="#">Kontakti</a></li>
+                        <li><a {{ (Request::is('*/index') ? 'class=active' : '') }}
+                                {{ (Request::is('/') ? 'class=active' : '') }} href="{{url("/")}}">Sākums</a></li>
+                        <li><a {{ (Request::is('*services') ? 'class=active' : '') }} href="#">Juridiskie pakalpojumi</a></li>
+                        <li><a {{ (Request::is('*projects') ? 'class=active' : '') }} href="#">Projektu vadība</a></li>
+                        <li><a {{ (Request::is('*question*') ? 'class=active' : '') }} href="{{url("/questions")}}">Jautājumi & atbildes</a></li>
+                        <li><a {{ (Request::is('*contact') ? 'class=active' : '') }} href="#">Kontakti</a></li>
                     </ul>
                 </nav>
             </div>

@@ -240,3 +240,10 @@ hr{
 #edit_row_text{
     height:200px;
 }
+.input-form{
+    width:500px;
+}
+.active{
+    color: rgb(255, 255, 255) !important;
+    background-color: #e05f03 !important;
+}

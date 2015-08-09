@@ -19,8 +19,8 @@ class MakeParagraph extends Migration {
             $table->timestamps();
             $table->unsignedInteger('uid_create');
             $table->unsignedInteger('uid_edit');
-            $table->foreign('uid_create')->references('id')->on('users');
-            $table->foreign('uid_edit')->references('id')->on('users');
+            $table->foreign('uid_create')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('uid_edit')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
