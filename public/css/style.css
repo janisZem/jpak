@@ -247,3 +247,20 @@ hr{
     color: rgb(255, 255, 255) !important;
     background-color: #e05f03 !important;
 }
+.question-list-status{
+    float: right;
+    margin-top: -50px;
+    display: inline;
+}
+.question-list-staate{
+    float: right;
+    margin-top: -50px;
+    margin-right: -100px;
+    display: inline;
+}
+.question-id{
+    display: none;
+}
+.form-control > #edit_question{
+    height: 500px !important;
+}

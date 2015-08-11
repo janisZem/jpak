@@ -63,7 +63,9 @@ Route::get('/form/', function() {
 Route::get('/questions', 'questionsController@index');
 Route::get('/question/{title}/{id}', ['uses' => 'questionsController@show']);
 Route::get('/question/new', 'questionsController@create');
-Route::post('/question/store', 'questionsController@store');
+Route::post('/question/store', 'questionsController@store'); //new
+Route::post('/question/update', 'questionsController@update'); //update
+Route::get('/questions/admin', 'questionsController@admin');
 
 /* question selection ends */
 

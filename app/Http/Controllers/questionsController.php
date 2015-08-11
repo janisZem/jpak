@@ -10,6 +10,7 @@ use Input;
 use DB;
 use App\Questions;
 use App\Classif;
+use Auth;
 
 class questionsController extends Controller {
 
@@ -19,7 +20,11 @@ class questionsController extends Controller {
      * @return Response
      */
     public function index() {
-        $data['questions'] = Questions::all();
+        if (Auth::check()) {
+            $data['questions'] = Questions::all();
+        } else {
+            $data['questions'] = Questions::where('status', '0002')->get();
+        }
         return view('questions/questionsList', $data);
     }
 
@@ -71,7 +76,7 @@ class questionsController extends Controller {
      * @return Response
      */
     public function show($title, $id) {
-        if($id == ""){
+        if ($id == "") {
             return "";
         }
         $data["question"] = Questions::find($id);
@@ -95,8 +100,32 @@ class questionsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update() {
+        $data = Questions::find(Input::get("id"));
+        if (!$data) {
+            return "not found";
+        }
+        $validator = Validator::make([
+                    'title' => Input::get("title")], [
+                    'title' => 'max:255',]
+        );
+        if ($validator->fails()) {
+            return "i wanna more";
+        }
+        if (Input::get("title") != "") {
+            $data->title = Input::get("title");
+        }
+        if (Input::get("question") != "") {
+            $data->question = Input::get("question");
+        }
+        $data->status = "0001";
+        $state = Classif::where('name', 'PARAGRAPH_STATE')
+                ->where('code', '0001')//Iesniegts
+                ->first();
+        $data->cid = $state->id;
+        $data->email = Input::get("email");
+        $data->save();
+        //return redirect("/question/$data->title/$data->id"); //maybe dynamic insert without refresh
     }
 
     /**

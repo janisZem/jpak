@@ -16,8 +16,8 @@
         <div id="container">
             <div id="head">
                 <div id="div_logo">
-                    <a href="index.html" id="div_site_title">Annas Berzas</a><br />
-                    <a href="index.html" id="div_tag_line">tiešsaistes birojs</a>
+                    <a href="index.html" id="div_site_title">ololol</a><br />
+                    <a href="index.html" id="div_tag_line">ololol</a>
                 </div>
                 <nav class="nav-menu">
                     <ul id="main_menu">
@@ -40,6 +40,7 @@
         <script src="{{ URL::asset('/scripts/jquery.js') }}" type="text/javascript"></script>
         <?php if (Auth::check()) { ?>
             <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
+            <script src="{{ URL::asset('/scripts/questions.js') }}" type="text/javascript"></script>
         <?php } ?>
         <script src="{{ URL::asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     </body>
