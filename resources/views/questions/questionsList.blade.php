@@ -13,18 +13,20 @@
             <div>{{$question->created_at}}</div>
             @if (Auth::check())
             <?php
-            $class = "btn-default";
+            $class = "btn-success";
+            $statusLbl = "Redzams";
             if ($question->status == '0001') {
                 $class = "btn-warning";
+                $statusLbl = "Neredzmas";
             }
             ?>
             <div class="btn-group question-list-status">
-                <button type="button" class="btn dropdown-toggle {{ $class }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Neredzams <span class="caret"></span>
+                <button type="button" class="btn dropdown-toggle {{ $class }} status_{{$question->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{$statusLbl}} <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Neredzams</a></li>
-                    <li><a href="#">Redzams</a></li>
+                    <li><a onclick="QUESTIONS.QUESTION.setStatus('0001', {{$question->id}})">Neredzams</a></li>
+                    <li><a onclick="QUESTIONS.QUESTION.setStatus('0002', {{$question->id}})">Redzams</a></li>
                 </ul>
             </div>
             @endif

@@ -249,18 +249,12 @@ hr{
 }
 .question-list-status{
     float: right;
-    margin-top: -50px;
-    display: inline;
+    margin-top: -50px;    
 }
-.question-list-staate{
-    float: right;
-    margin-top: -50px;
-    margin-right: -100px;
-    display: inline;
-}
+
 .question-id{
     display: none;
 }
-.form-control > #edit_question{
-    height: 500px !important;
+.question-edit-controls{
+    padding-bottom: 30px;
 }

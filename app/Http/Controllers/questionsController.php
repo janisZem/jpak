@@ -10,6 +10,7 @@ use Input;
 use DB;
 use App\Questions;
 use App\Classif;
+use App\Answers;
 use Auth;
 
 class questionsController extends Controller {
@@ -79,7 +80,10 @@ class questionsController extends Controller {
         if ($id == "") {
             return "";
         }
-        $data["question"] = Questions::find($id);
+        $data["question"] = Questions::with('question_classif')
+                ->where('id', $id)
+                ->first();
+        $data['answers'] = Answers::where('qid', $id)->get();
         return view('questions/question', $data);
     }
 
@@ -93,14 +97,9 @@ class questionsController extends Controller {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
+
     public function update() {
+        //implement new state answered
         $data = Questions::find(Input::get("id"));
         if (!$data) {
             return "not found";
@@ -118,12 +117,20 @@ class questionsController extends Controller {
         if (Input::get("question") != "") {
             $data->question = Input::get("question");
         }
-        $data->status = "0001";
-        $state = Classif::where('name', 'PARAGRAPH_STATE')
-                ->where('code', '0001')//Iesniegts
-                ->first();
-        $data->cid = $state->id;
-        $data->email = Input::get("email");
+        if (Input::get("status") != "") {
+            $data->status = Input::get("status");
+        }
+
+        if (Input::get("state") != "") {
+            $state = Classif::where('name', 'PARAGRAPH_STATE')
+                    ->where('code', Input::get("state"))
+                    ->first();
+            if ($state->id) {
+                $data->cid = $state->id;
+            }
+            $data->save();
+            return $state;
+        }
         $data->save();
         //return redirect("/question/$data->title/$data->id"); //maybe dynamic insert without refresh
     }

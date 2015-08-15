@@ -67,6 +67,8 @@ Route::post('/question/store', 'questionsController@store'); //new
 Route::post('/question/update', 'questionsController@update'); //update
 Route::get('/questions/admin', 'questionsController@admin');
 
+Route::post('/answer/store', 'answersController@store'); //new
+
 /* question selection ends */
 
 

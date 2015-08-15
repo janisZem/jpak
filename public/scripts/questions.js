@@ -84,6 +84,76 @@ var QUESTIONS = {
                 }
             }, "json");
         }
+    },
+    QUESTION: {
+        setStatus: function (status, id) {
+            QUESTIONS.QUESTION.update(status, 'status', id);
+        },
+        setState: function (state) {
+            QUESTIONS.QUESTION.update(state, 'state');
+        },
+        update: function (status, type, id) {
+            var url = 'question/update';
+            if (!id) {
+                id = $('.question-id').text();
+                url = '../../question/update';
+            }
+            console.log(status);
+            var ds = type + '=' + status
+                    + '&_token='
+                    + PAGE.token
+                    + '&id='
+                    + id;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: ds,
+                success: function (r) {
+                    if (id) {
+                        QUESTIONS.QUESTION.changeButtonText(status, id);
+                        return;
+                    }
+                    if (type === "state") {
+                        var $state = $('.question-state');
+                        $state.text(r.value);
+                        if (status === '0002') {
+                            $state.removeClass('btn-warning');
+                            $state.addClass('btn-success');
+                        } else if (status === '0001') {
+                            $state.addClass('btn-warning');
+                            $state.removeClass('btn-success');
+                        }
+                    } else if (type === "status") {
+                        var $status = $('.question-status');
+                        if (status === '0002') {
+                            $status.removeClass('btn-warning');
+                            $status.addClass('btn-success');
+                            $status.text("Redzams");
+                        } else if (status === '0001') {
+                            $status.addClass('btn-warning');
+                            $status.removeClass('btn-success');
+                            $status.text("Neredzams");
+                        }
+
+                    }
+
+
+                }
+            }, "json");
+
+        },
+        changeButtonText: function (status, id) {
+            var $elem = $('.status_' + id);
+            if (status === '0001') {
+                $elem.addClass('btn-warning');
+                $elem.removeClass('btn-success');
+                $elem.text("Neredzams");
+            } else if (status === '0002') {
+                $elem.removeClass('btn-warning');
+                $elem.addClass('btn-success');
+                $elem.text("Redzams");
+            }
+        }
     }
 
 };
