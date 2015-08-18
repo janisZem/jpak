@@ -36,7 +36,7 @@ class answersController extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store() {        
+    public function store() {
         // print_r(Input::get("name"));
         $validator = Validator::make([
                     'name' => Input::get("name"),
@@ -49,7 +49,11 @@ class answersController extends Controller {
         if ($validator->fails()) {
             return "i wanna more";
         }
-        $data = new Answers;
+        if (Input::get("id") != "") {
+            $data = Answers::find(Input::get("id"));
+        } else {
+            $data = new Answers;
+        }
         $data->name = Input::get("name");
         $data->surname = Input::get("surname");
         $data->answer = Input::get("answer");

@@ -34,8 +34,7 @@
         <hr>
     </div>
     @endforeach
-
-
+    <h4>Uzdot jautājumu</h4>
     <div class='input-form'>
         {!! Form::open(array('url' => 'question/store', 'method' => 'POST')) !!}
         {!! Form::text('name', '', array('class'=>'form-control', 

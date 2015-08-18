@@ -42,21 +42,28 @@
         <div class="question-title-div">
             <div><h4 class="question-title">{{$question->title}}</h4> {{$question->created_at}}</div>
             <hr>
-            <div class="question-content">{{$question->question}}</div>
+            <div class="question-content">{!! nl2br(e($question->question)) !!}</div>
             <span class="question-id">{{$question->id}}</span>
         </div>
     </div>
-    <br>
     <hr>
-   
+    <?php if (count($answers) != 0) { ?>
+        <h4>Atbildes</h4>
+    <?php } else { ?>
+        <h4>Šobrid nav nevienas atbildes</h4>
+    <?php } ?>
     @foreach($answers as $answer)
-    <div id="par_div">
-        <div class="question-title-div">
-            <div class="question-content">{{$answer->answer}}</div>
+    <div class="answer">
+        <div class="answer-content">{!! nl2br(e($answer->answer)) !!}</div>
+        <div class='answer_id' id="answer_id_{{$answer->id}}">{{$answer->id}}</div>
+        <div class="author">Atbildēja: <span class="answer_name">{{$answer->name }}</span>
+            <span class="answer_surname">{{$answer->surname}}</span>
+            <span class="answer_date">{{$answer->created_at}}</span>
         </div>
     </div>
-    @endforech
-
+    @endforeach
+    <br>
+    @if (Auth::check())
     <h4>Pievienot atbildi</h4>
     <div class='input-form'>
         {!! Form::open(array('url' => 'answer/store', 'method' => 'POST')) !!}
@@ -72,5 +79,6 @@
         {!! Form::submit('Pievienot atbildi', array('class'=>'btn btn-default'))!!}
         {!! Form::close() !!}
     </div>
+    @endif
 </div>
 @stop

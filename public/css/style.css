@@ -258,3 +258,6 @@ hr{
 .question-edit-controls{
     padding-bottom: 30px;
 }
+.answer_id{
+    display: none;
+}

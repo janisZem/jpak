@@ -6,6 +6,9 @@ var QUESTIONS = {
         $('.question-content').on('click', function () {
             QUESTIONS.CONTENT.edit();
         });
+        $('.answer-content').on('click', function () {
+            QUESTIONS.ANSWERS.edit(this);
+        });
     },
     TITLE: {
         edit: function () {
@@ -153,6 +156,51 @@ var QUESTIONS = {
                 $elem.addClass('btn-success');
                 $elem.text("Redzams");
             }
+        }
+    },
+    ANSWERS: {
+        edit: function (elem) {
+            var $elem = $(elem);
+            $elem.parent('.answer').append(QUESTIONS.ANSWERS.drawEdit($elem));
+            $elem.hide();
+            $elem.siblings('.author').hide();
+        },
+        drawEdit: function ($elem) {
+            console.log($elem.siblings('.author').children('.answer_name').text());
+            return '<textarea style="height:300px"'//fix syle attr
+                    + 'id="answer_edit_content" '
+                    + 'class="form-control">' + $elem.text() + '</textarea><br>'
+                    + '<input id="answer_edit_name" placeholder="Vārds" type="text" value="' + $elem.siblings('.author').children('.answer_name').text() + '" class="form-control"><br>'
+                    + '<input id="answer_edit_surname" placeholder="Uzvārds" type="text" value="' + $elem.siblings('.author').children('.answer_surname').text() + '" class="form-control"><br>'
+                    + '<input type="hidden" value="' + $('.question-id').text() + '" id="question_id">'
+                    + '<div onclick="QUESTIONS.ANSWERS.store(' + $elem.siblings('.answer_id').text() + ')"'
+                    + ' class="edit-question-submit btn btn-default">Saglabāt</div>';
+        }, store: function (id) {
+            var ds = 'answer=' + $('#answer_edit_content').val()
+                    + '&name=' + $('#answer_edit_name').val()
+                    + '&surname=' + $('#answer_edit_surname').val()
+                    + '&_token=' + PAGE.token
+                    + '&id=' + id
+                    + '&question_id=' + $('#question_id').val();
+            console.log(ds);
+            $.ajax({
+                type: "POST",
+                url: "../../answer/store",
+                data: ds,
+                success: function () {
+                    console.log($('#answer_edit_surname').val());
+                    $('#answer_id_' + id).siblings('.answer-content').show();
+                    $('#answer_id_' + id).siblings('.answer-content').text($('#answer_edit_content').val());
+                    $('#answer_edit_content').remove();
+                    $('#answer_id_' + id).siblings('.author').show();                    
+                    $('#answer_id_' + id).siblings('.author').children('.answer_name').show();
+                    $('#answer_id_' + id).siblings('.author').children('.answer_name').html($('#answer_edit_name').val());
+                    $('#answer_edit_name').remove();
+                    $('#answer_id_' + id).siblings('.author').children('.answer_surname').show();
+                    $('#answer_id_' + id).siblings('.author').children('.answer_surname').text($('#answer_edit_surname').val());
+                    $('#answer_edit_surname').remove();
+                }
+            }, "json");
         }
     }
 
