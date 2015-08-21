@@ -101,7 +101,6 @@ var QUESTIONS = {
                 id = $('.question-id').text();
                 url = '../../question/update';
             }
-            console.log(status);
             var ds = type + '=' + status
                     + '&_token='
                     + PAGE.token
@@ -112,12 +111,8 @@ var QUESTIONS = {
                 url: url,
                 data: ds,
                 success: function (r) {
-                    if (id) {
-                        QUESTIONS.QUESTION.changeButtonText(status, id);
-                        return;
-                    }
                     if (type === "state") {
-                        var $state = $('.question-state');
+                        var $state = $('.state_' + id);
                         $state.text(r.value);
                         if (status === '0002') {
                             $state.removeClass('btn-warning');
@@ -127,7 +122,7 @@ var QUESTIONS = {
                             $state.removeClass('btn-success');
                         }
                     } else if (type === "status") {
-                        var $status = $('.question-status');
+                        var $status = $('.status_' + id);
                         if (status === '0002') {
                             $status.removeClass('btn-warning');
                             $status.addClass('btn-success');
@@ -144,18 +139,6 @@ var QUESTIONS = {
                 }
             }, "json");
 
-        },
-        changeButtonText: function (status, id) {
-            var $elem = $('.status_' + id);
-            if (status === '0001') {
-                $elem.addClass('btn-warning');
-                $elem.removeClass('btn-success');
-                $elem.text("Neredzams");
-            } else if (status === '0002') {
-                $elem.removeClass('btn-warning');
-                $elem.addClass('btn-success');
-                $elem.text("Redzams");
-            }
         }
     },
     ANSWERS: {
@@ -192,7 +175,7 @@ var QUESTIONS = {
                     $('#answer_id_' + id).siblings('.answer-content').show();
                     $('#answer_id_' + id).siblings('.answer-content').text($('#answer_edit_content').val());
                     $('#answer_edit_content').remove();
-                    $('#answer_id_' + id).siblings('.author').show();                    
+                    $('#answer_id_' + id).siblings('.author').show();
                     $('#answer_id_' + id).siblings('.author').children('.answer_name').show();
                     $('#answer_id_' + id).siblings('.author').children('.answer_name').html($('#answer_edit_name').val());
                     $('#answer_edit_name').remove();

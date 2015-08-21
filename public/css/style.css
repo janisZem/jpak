@@ -19,7 +19,8 @@ and open the template in the editor.
     .div-row{
         width: 30%;
         margin-left: 3%;
-        display: inline-block;
+        display: block;
+        float:left;
     }
     .div-row:first-child {
         margin-left: 0;
@@ -167,6 +168,7 @@ hr{
 }
 .div-rows{
     width: 100%;
+    display:table;
 }
 @media (min-width: 1200px){
 

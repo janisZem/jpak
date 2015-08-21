@@ -20,6 +20,14 @@ class classifSeeder extends Seeder {
             'name' => 'PARAGRAPH_STATE',
             'value' => 'Apstiprināts',
             'code' => '0002']);
+        DB::table('classif')->insert([
+            'name' => 'ANSWER_STATUS',
+            'value' => 'Iesniegts',
+            'code' => '0001']);
+        DB::table('classif')->insert([
+            'name' => 'ANSWER_STATUS',
+            'value' => 'Atbildēts',
+            'code' => '0001']);
     }
 
 }

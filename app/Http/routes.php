@@ -55,6 +55,19 @@ Route::get('/delete/{id}', function($id) {
 Route::get('/form/', function() {
     return View::make('olol');
 });
+Route:get('/mail', function() {
+    Mail::raw('Laravel with Mailgun is easy!', function($message) {
+        $message->to('janiszemnickis@gmail.com');
+        $message->from('aa@aa.lv');
+    });
+    /* $to = 'janiszemnickis@gmail.com';
+      $subject = 'test123';
+      $message = 'msg cint';
+      $from = "manasistema@sistema.lv";
+      $headers = "From:" . $from;
+      mail($to, $subject, $message, $headers);
+      echo "Mail Sent."; */
+});
 /* learning selection ends */
 
 

@@ -19,7 +19,7 @@
         }
         ?>
         <div class="btn-group">
-            <button type="button" class="btn dropdown-toggle {{ $class }} question-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn dropdown-toggle {{ $class }} status_{{$question->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{$statusLbl}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
@@ -28,7 +28,7 @@
             </ul>
         </div>
         <div class="btn-group">
-            <button type="button" class="btn dropdown-toggle {{ $state }} question-state" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn dropdown-toggle {{ $state }} state_{{$question->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{$question['question_classif'][0]->value}} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
