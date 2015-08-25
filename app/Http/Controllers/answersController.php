@@ -57,13 +57,17 @@ class answersController extends Controller {
         $data->name = Input::get("name");
         $data->surname = Input::get("surname");
         $data->answer = Input::get("answer");
-        $state = Classif::where('name', 'PARAGRAPH_STATE')
-                ->where('code', '0001')//Iesniegts
+        $satus = Classif::where('name', 'ANSWER_STATUS')
+                ->where('code', '0002')//Atbildēts
                 ->first();
-        $data->cid = $state->id; ///fix this latter
+        $data->cid = $satus->id;
         $data->qid = Input::get("question_id");
         $data->save();
-        return redirect('/questions'); //maybe dynamic insert without refresh
+        if (Input::get("question_id") != "") {
+            return redirect("/question/" . Input::get("question_id") . "/" . Input::get("question_id"));
+        } else {
+            return redirect('/question'); //maybe dynamic insert without refresh
+        }
     }
 
     /**

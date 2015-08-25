@@ -12,6 +12,7 @@ use App\Questions;
 use App\Classif;
 use App\Answers;
 use Auth;
+use App\Questions_tags;
 
 class questionsController extends Controller {
 
@@ -84,6 +85,7 @@ class questionsController extends Controller {
                 ->where('id', $id)
                 ->first();
         $data['answers'] = Answers::where('qid', $id)->get();
+        $data['question_tags'] = Questions_tags::all();
         return view('questions/question', $data);
     }
 
@@ -96,7 +98,6 @@ class questionsController extends Controller {
     public function edit($id) {
         //
     }
-
 
     public function update() {
         //implement new state answered
@@ -142,7 +143,11 @@ class questionsController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        
+    }
+
+    public function getTags() {
+        Input::get("state");
     }
 
 }

@@ -4,7 +4,7 @@
 @stop
 @section('content')
 <div id="div_page_content">
-    <h1>Juatājumi un atbildes</h1>
+    <h1>Jautājumi un atbildes</h1>
     <br>
     @foreach( $questions as $question )
     <div id="par_div">

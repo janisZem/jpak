@@ -6,6 +6,8 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ URL::asset('/css/style.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('/scripts/jquery-ui/jquery-ui.theme.min.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('/scripts/tagEdit/jquery.tagedit.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}"/>
         <link href="http://fonts.googleapis.com/css?family=Syncopate" rel="stylesheet" type="text/css">
@@ -38,10 +40,13 @@
 
         </div>
         <script src="{{ URL::asset('/scripts/jquery.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/scripts/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/scripts/tagEdit/jquery.autoGrowInput.js') }}" type="text/javascript"></script>
+        <script src="{{ URL::asset('/scripts/tagEdit/jquery.tagedit.js') }}" type="text/javascript"></script>
         <?php if (Auth::check()) { ?>
             <script src="{{ URL::asset('/scripts/main.js') }}" type="text/javascript"></script>
             <script src="{{ URL::asset('/scripts/questions.js') }}" type="text/javascript"></script>
         <?php } ?>
-        <script src="{{ URL::asset('/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     </body>
 </html>

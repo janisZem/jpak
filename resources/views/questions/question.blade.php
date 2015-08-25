@@ -46,11 +46,15 @@
             <span class="question-id">{{$question->id}}</span>
         </div>
     </div>
+    @if (Auth::check())
+    <h4>Jautājuma tēmas</h4>
+    <input type="text" id="add_tags_input">
+    @endif
     <hr>
     <?php if (count($answers) != 0) { ?>
         <h4>Atbildes</h4>
     <?php } else { ?>
-        <h4>Šobrid nav nevienas atbildes</h4>
+        <h4>Šobrīd nav nevienas atbildes</h4>
     <?php } ?>
     @foreach($answers as $answer)
     <div class="answer">
@@ -61,6 +65,7 @@
             <span class="answer_date">{{$answer->created_at}}</span>
         </div>
     </div>
+    <br>
     @endforeach
     <br>
     @if (Auth::check())

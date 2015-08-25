@@ -26,8 +26,8 @@ class classifSeeder extends Seeder {
             'code' => '0001']);
         DB::table('classif')->insert([
             'name' => 'ANSWER_STATUS',
-            'value' => 'Atbildēts',
-            'code' => '0001']);
+            'value' => 'Atbilde',
+            'code' => '0002']);
     }
 
 }

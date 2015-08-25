@@ -9,6 +9,9 @@ var QUESTIONS = {
         $('.answer-content').on('click', function () {
             QUESTIONS.ANSWERS.edit(this);
         });
+        $('#add_tags_input').tagedit({
+            autocompleteURL: '/'
+        });
     },
     TITLE: {
         edit: function () {
