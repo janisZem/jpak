@@ -32,44 +32,6 @@ Route::get('/lt', function() {
 });
 /* login selection ends */
 
-/* learning selection starts fix:delete this */
-
-Route::post('save', 'test@save');
-Route::get('/allusers', 'test@test');
-/* Route::post('/save', function() {
-  $data = new App\Olol;
-  $data->name = Input::get("name");
-  $data->email = Input::get("email");
-  $data->password = Hash::make(Input::get("psw"));
-  $data->save();
-  }); */
-Route::get('/delete/{id}', function($id) {
-    $data = App\Olol::find($id);
-    if ($data) {
-        $data->delete();
-        return "deleted";
-    } else {
-        return "cant find";
-    }
-});
-Route::get('/form/', function() {
-    return View::make('olol');
-});
-Route:get('/mail', function() {
-    Mail::raw('Laravel with Mailgun is easy!', function($message) {
-        $message->to('janiszemnickis@gmail.com');
-        $message->from('aa@aa.lv');
-    });
-    /* $to = 'janiszemnickis@gmail.com';
-      $subject = 'test123';
-      $message = 'msg cint';
-      $from = "manasistema@sistema.lv";
-      $headers = "From:" . $from;
-      mail($to, $subject, $message, $headers);
-      echo "Mail Sent."; */
-});
-/* learning selection ends */
-
 
 /* question selection  starts */
 
@@ -81,8 +43,14 @@ Route::post('/question/update', 'questionsController@update'); //update
 Route::get('/questions/admin', 'questionsController@admin');
 
 Route::post('/answer/store', 'answersController@store'); //new
+Route::post('/question/tags', 'answersController@getTags'); //find tag by name || AUTOCOMPLITE ||
 
 /* question selection ends */
 
+/* legal services */
+
+Route::get('/legal/', 'legalController@index');
+
+/* legal services ends */
 
 

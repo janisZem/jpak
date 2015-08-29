@@ -3,22 +3,27 @@ var PAGE = {
         $('.paragraph').children('h1,p').mouseover(function (e) {
             PAGE.PARGRAPH.showEdit(e);
         });
-        $('#new_paragraph').on('click', function () {
-            PAGE.PARGRAPH.addNew();
+        $('#new_paragraph').on('click', function (e) {
+            PAGE.PARGRAPH.addNew(e.target);
         });
     },
     token: $('meta[name="csrf-token"]').attr('content'),
     PARGRAPH: {
-        addNew: function () { /* creates paragraph inputs */
+        addNew: function (elem) { /* creates paragraph inputs */
+            var $elem = $(elem);
+            var type = "P";
+            if ($elem.hasClass('legal')) {
+                type = "'PL'";
+            }
             var html = '<div class="new-form">'
                     + '     <input type="text" class="new-paragraph-input form-control"><br>'
                     + '     <textarea id="edit_p_textarea" class="form-control new-paragraph-textarea"></textarea>'
-                    + '     <div onclick="PAGE.PARGRAPH.store()" class="new-paragraph-submit btn btn-default">Pievienot</div>'
+                    + '     <div onclick="PAGE.PARGRAPH.store(' + type + ')" class="new-paragraph-submit btn btn-default">Pievienot</div>'
                     + ' </div>';
             $('#par_div').append(html);
             $('#new_paragraph').hide();
         },
-        store: function () { /* saves new paragraph */
+        store: function (type) { /* saves new paragraph */
             if ($('.new-paragraph-input').val() === ""
                     || $('.new-paragraph-textarea').val() === "") {
                 return; //show some error
@@ -28,7 +33,7 @@ var PAGE = {
                     + $('.new-paragraph-textarea').val()
                     + '&_token='
                     + PAGE.token
-                    + '&t=P';
+                    + '&t=' + type;
             $.ajax({
                 type: "POST",
                 url: "save_paragraph",
@@ -65,9 +70,9 @@ var PAGE = {
             $(elem).attr("onclick", "PAGE.PARGRAPH.save(this)");
         },
         save: function (elem) { /* update pragagraph */
-
             var title = "", p = "";
             var id = elem.id.split('_')[2];
+            var type = $('#type_' + id).text();
             var parent = $('#' + id);
             var $elem = parent;
             var $h1 = $($elem.children('h1'));
@@ -90,7 +95,6 @@ var PAGE = {
             if (p === "" || title === "") {
                 return; //display some error
             }
-
             var dataString = 'title=' + title
                     + '&content='
                     + p
@@ -98,7 +102,7 @@ var PAGE = {
                     + PAGE.token
                     + '&id='
                     + $elem.attr('id')
-                    + '&t=P';
+                    + '&t=' + type;
             //console.log(dataString);
             $.ajax({
                 type: "POST",

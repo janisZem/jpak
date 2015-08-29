@@ -8,36 +8,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Answers;
 use App\Classif;
+use Auth;
 use Input;
 
 class answersController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index() {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function store() {
-        // print_r(Input::get("name"));
+        if (!Auth::check()) {
+            return;
+        }
         $validator = Validator::make([
                     'name' => Input::get("name"),
                     'surname' => Input::get("surname"),
@@ -47,7 +26,7 @@ class answersController extends Controller {
                     'answer' => 'required',]
         );
         if ($validator->fails()) {
-            return "i wanna more";
+            return "Answer is mandatory";
         }
         if (Input::get("id") != "") {
             $data = Answers::find(Input::get("id"));
@@ -70,45 +49,13 @@ class answersController extends Controller {
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id) {
-        //
+    public function destroy() {
+        if (!Auth::check()) {
+            return;
+        }
+        $data = Answers::find(Input::get("id"));
+        $data->delete();
+        return "OK";
     }
 
 }

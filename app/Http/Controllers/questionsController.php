@@ -16,11 +16,6 @@ use App\Questions_tags;
 
 class questionsController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index() {
         if (Auth::check()) {
             $data['questions'] = Questions::all();
@@ -30,23 +25,11 @@ class questionsController extends Controller {
         return view('questions/questionsList', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function store() {
-        // print_r(Input::get("name"));
+        if (!Auth::check()) {
+            return;
+        }
+
         $validator = Validator::make([
                     'name' => Input::get("name"),
                     'email' => Input::get("email"),
@@ -56,7 +39,7 @@ class questionsController extends Controller {
                     'question' => 'required',]
         );
         if ($validator->fails()) {
-            return "i wanna more";
+            return "Fields name, email and question are mandatory";
         }
         $data = new Questions;
         $data->title = Input::get("name");
@@ -71,12 +54,6 @@ class questionsController extends Controller {
         return redirect('/questions'); //maybe dynamic insert without refresh
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function show($title, $id) {
         if ($id == "") {
             return "";
@@ -84,25 +61,19 @@ class questionsController extends Controller {
         $data["question"] = Questions::with('question_classif')
                 ->where('id', $id)
                 ->first();
+        /* clients can see only question with status 0002 */
+        if (!Auth::check() && $data["question"]->status != '0002') {
+            return redirect('/questions');
+        }
         $data['answers'] = Answers::where('qid', $id)->get();
         $data['question_tags'] = Questions_tags::all();
         return view('questions/question', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-        //
-    }
-
     public function update() {
         //implement new state answered
         $data = Questions::find(Input::get("id"));
-        if (!$data) {
+        if (!$data || !Auth::check()) {
             return "not found";
         }
         $validator = Validator::make([
@@ -136,18 +107,10 @@ class questionsController extends Controller {
         //return redirect("/question/$data->title/$data->id"); //maybe dynamic insert without refresh
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id) {
-        
-    }
-
+  
     public function getTags() {
-        Input::get("state");
+
+        Question_tags::all();
     }
 
 }

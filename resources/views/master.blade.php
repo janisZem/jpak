@@ -25,7 +25,7 @@
                     <ul id="main_menu">
                         <li><a {{ (Request::is('*/index') ? 'class=active' : '') }}
                                 {{ (Request::is('/') ? 'class=active' : '') }} href="{{url("/")}}">Sākums</a></li>
-                        <li><a {{ (Request::is('*services') ? 'class=active' : '') }} href="#">Juridiskie pakalpojumi</a></li>
+                        <li><a {{ (Request::is('*legal') ? 'class=active' : '') }} href="{{url("/legal")}}">Juridiskie pakalpojumi</a></li>
                         <li><a {{ (Request::is('*projects') ? 'class=active' : '') }} href="#">Projektu vadība</a></li>
                         <li><a {{ (Request::is('*question*') ? 'class=active' : '') }} href="{{url("/questions")}}">Jautājumi & atbildes</a></li>
                         <li><a {{ (Request::is('*contact') ? 'class=active' : '') }} href="#">Kontakti</a></li>
@@ -35,7 +35,7 @@
             @yield('content')
             <div id="div_footer_separator"></div>
             <div id="div_footer">
-                Copyright © 2015 i-sitemas.lv all rights reserved.
+                <p>Copyright © 2015 i-sitemas.lv all rights reserved.</p>
             </div>
 
         </div>

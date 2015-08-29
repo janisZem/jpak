@@ -9,8 +9,11 @@ var QUESTIONS = {
         $('.answer-content').on('click', function () {
             QUESTIONS.ANSWERS.edit(this);
         });
-        $('#add_tags_input').tagedit({
-            autocompleteURL: '/'
+        /*$('#add_tags_input').tagedit({
+         autocompleteURL: '/'
+         }); */
+        $('.answer').mouseover(function (e) {
+            QUESTIONS.ANSWERS.showDelete(e.target)
         });
     },
     TITLE: {
@@ -152,7 +155,6 @@ var QUESTIONS = {
             $elem.siblings('.author').hide();
         },
         drawEdit: function ($elem) {
-            console.log($elem.siblings('.author').children('.answer_name').text());
             return '<textarea style="height:300px"'//fix syle attr
                     + 'id="answer_edit_content" '
                     + 'class="form-control">' + $elem.text() + '</textarea><br>'
@@ -168,13 +170,11 @@ var QUESTIONS = {
                     + '&_token=' + PAGE.token
                     + '&id=' + id
                     + '&question_id=' + $('#question_id').val();
-            console.log(ds);
             $.ajax({
                 type: "POST",
                 url: "../../answer/store",
                 data: ds,
                 success: function () {
-                    console.log($('#answer_edit_surname').val());
                     $('#answer_id_' + id).siblings('.answer-content').show();
                     $('#answer_id_' + id).siblings('.answer-content').text($('#answer_edit_content').val());
                     $('#answer_edit_content').remove();
@@ -187,6 +187,12 @@ var QUESTIONS = {
                     $('#answer_edit_surname').remove();
                 }
             }, "json");
+        },
+        showDelete: function (elem) {
+            $(elem).append('<button type="button" class="btn dropdown-toggle btn-danger status_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                    + 'Dzēst <span class="caret"></span>'
+                    + '</button>');
+            $(elem).off('mouseover');
         }
     }
 

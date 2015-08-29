@@ -8,9 +8,8 @@
         @foreach( $paragraphs as $p )
         <div class="paragraph" id="{{$p->id}}">
             <h1>{{$p->title}}</h1>
-            <p>
-                {{$p->content}}
-            </p>
+            <p>{{$p->content}}</p>
+            <div class="hidden" id="type_{{$p->id}}">{{$p->type}}</div>
         </div>
         <br>
         @endforeach
