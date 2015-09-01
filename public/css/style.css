@@ -308,3 +308,6 @@ hr{
 .legal-h1{
     font-size: large;
 }
+.answer-delete{
+    float:right;
+}

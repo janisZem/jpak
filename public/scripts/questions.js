@@ -189,10 +189,11 @@ var QUESTIONS = {
             }, "json");
         },
         showDelete: function (elem) {
-            $(elem).append('<button type="button" class="btn dropdown-toggle btn-danger status_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                    + 'Dzēst <span class="caret"></span>'
+            $(elem).append('<button type="button" class="btn dropdown-toggle btn-danger answer-delete"'
+                    + 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
+                    + 'Dzēst'
                     + '</button>');
-            $(elem).off('mouseover');
+            $('.answer').off('mouseover');
         }
     }
 
