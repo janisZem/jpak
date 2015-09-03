@@ -44,7 +44,7 @@ Route::get('/questions/admin', 'questionsController@admin');
 
 Route::post('/answer/store', 'answersController@store'); //new
 Route::post('/question/tags', 'answersController@getTags'); //find tag by name || AUTOCOMPLITE ||
-
+Route::post('/answer/delete', 'answersController@destroy'); //new
 /* question selection ends */
 
 /* legal services */

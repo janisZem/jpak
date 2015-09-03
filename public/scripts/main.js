@@ -11,7 +11,7 @@ var PAGE = {
     PARGRAPH: {
         addNew: function (elem) { /* creates paragraph inputs */
             var $elem = $(elem);
-            var type = "P";
+            var type = "'P'";
             if ($elem.hasClass('legal')) {
                 type = "'PL'";
             }
@@ -134,6 +134,7 @@ var PAGE = {
             var dataString = 'id=' + id
                     + '&_token='
                     + PAGE.token;
+            console.log(dataString);
             $.ajax({
                 type: "POST",
                 url: "delete_paragraph",

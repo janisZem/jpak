@@ -9,12 +9,11 @@ var QUESTIONS = {
         $('.answer-content').on('click', function () {
             QUESTIONS.ANSWERS.edit(this);
         });
-        /*$('#add_tags_input').tagedit({
-         autocompleteURL: '/'
-         }); */
-        $('.answer').mouseover(function (e) {
-            QUESTIONS.ANSWERS.showDelete(e.target)
+        $('.answer').children('.answer-content').mouseover(function (e) {
+            QUESTIONS.ANSWERS.showDelete(e.target);
         });
+
+
     },
     TITLE: {
         edit: function () {
@@ -58,7 +57,6 @@ var QUESTIONS = {
                     $title.show();
                 }
             }, "json");
-
         }
     },
     CONTENT: {
@@ -138,13 +136,9 @@ var QUESTIONS = {
                             $status.removeClass('btn-success');
                             $status.text("Neredzams");
                         }
-
                     }
-
-
                 }
             }, "json");
-
         }
     },
     ANSWERS: {
@@ -175,25 +169,42 @@ var QUESTIONS = {
                 url: "../../answer/store",
                 data: ds,
                 success: function () {
-                    $('#answer_id_' + id).siblings('.answer-content').show();
-                    $('#answer_id_' + id).siblings('.answer-content').text($('#answer_edit_content').val());
+                    var $answer = $('#answer_id_' + id);
+                    $answer.siblings('.answer-content').show();
+                    $answer.siblings('.answer-content').text($('#answer_edit_content').val());
                     $('#answer_edit_content').remove();
-                    $('#answer_id_' + id).siblings('.author').show();
-                    $('#answer_id_' + id).siblings('.author').children('.answer_name').show();
-                    $('#answer_id_' + id).siblings('.author').children('.answer_name').html($('#answer_edit_name').val());
+                    $answer.siblings('.author').show();
+                    $answer.siblings('.author').children('.answer_name').show();
+                    $answer.siblings('.author').children('.answer_name').html($('#answer_edit_name').val());
                     $('#answer_edit_name').remove();
-                    $('#answer_id_' + id).siblings('.author').children('.answer_surname').show();
-                    $('#answer_id_' + id).siblings('.author').children('.answer_surname').text($('#answer_edit_surname').val());
+                    $answer.siblings('.author').children('.answer_surname').show();
+                    $answer.siblings('.author').children('.answer_surname').text($('#answer_edit_surname').val());
                     $('#answer_edit_surname').remove();
                 }
             }, "json");
         },
         showDelete: function (elem) {
-            $(elem).append('<button type="button" class="btn dropdown-toggle btn-danger answer-delete"'
-                    + 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
-                    + 'Dzēst'
-                    + '</button>');
-            $('.answer').off('mouseover');
+            $('.answer-delete').remove();
+            $(elem).parent('.answer').append('<button type="button" class="btn dropdown-toggle btn-danger answer-delete"'
+                    + '             onclick="QUESTIONS.ANSWERS.delete(' + elem.id + ')"'
+                    + '             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dzēst'
+                    + '     </button>');
+        },
+        delete: function (elem) {
+            var id = $(elem).attr('id').split('_')[2];
+            var dataString = 'id=' + id
+                    + '&_token='
+                    + PAGE.token;
+            $.ajax({
+                type: "POST",
+                url: "../../answer/delete",
+                data: dataString,
+                success: function (data) {
+                    if (data === "OK") {
+                        $("#answer_" + id).remove();
+                    }
+                }
+            }, "json");
         }
     }
 

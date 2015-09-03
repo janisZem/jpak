@@ -57,8 +57,8 @@
         <h4>Šobrīd nav nevienas atbildes</h4>
     <?php } ?>
     @foreach($answers as $answer)
-    <div class="answer">
-        <div class="answer-content">{!! nl2br(e($answer->answer)) !!}</div>
+    <div class="answer" id="answer_{{$answer->id}}">
+        <div id="answer_id_{{$answer->id}}" class="answer-content">{!! nl2br(e($answer->answer)) !!}</div>
         <div class='answer_id' id="answer_id_{{$answer->id}}">{{$answer->id}}</div>
         <div class="author">Atbildēja: <span class="answer_name">{{$answer->name }}</span>
             <span class="answer_surname">{{$answer->surname}}</span>

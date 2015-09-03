@@ -309,5 +309,6 @@ hr{
     font-size: large;
 }
 .answer-delete{
+    margin-top:-20px;
     float:right;
 }

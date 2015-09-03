@@ -7,6 +7,7 @@ use App\Paragraph;
 use App\Paragraph_attrs;
 use Input;
 use DB;
+use Auth;
 
 class paragraphController extends Controller {
 

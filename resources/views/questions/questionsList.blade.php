@@ -44,9 +44,8 @@
         'placeholder'=>'Jautājums')) !!}<br>
         {!! Form::email('email', '', array('class'=>'form-control',
         'placeholder'=>'E-pasts'))!!}<br>            
-        {!! Form::submit('Pievienot jautājumu!', array('class'=>'btn btn-default'))!!}
+        {!! Form::submit('Pievienot jautājumu!', array('class'=>'btn btn-default' 'type' => 'button'))!!}
         {!! Form::close() !!}
     </div>
-</div>
 </div>
 @stop
