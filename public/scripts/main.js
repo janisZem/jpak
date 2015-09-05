@@ -11,9 +11,11 @@ var PAGE = {
     PARGRAPH: {
         addNew: function (elem) { /* creates paragraph inputs */
             var $elem = $(elem);
-            var type = "'P'";
+            var type = "'P'"; //index paragraph
             if ($elem.hasClass('legal')) {
-                type = "'PL'";
+                type = "'PL'"; //legal paragraph
+            }else if($elem.hasClass('project')){
+                type = "'PM'";//project managment paragraph
             }
             var html = '<div class="new-form">'
                     + '     <input type="text" class="new-paragraph-input form-control"><br>'

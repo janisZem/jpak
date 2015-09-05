@@ -1,6 +1,6 @@
 @extends('master')
 @section('header')
-<title>Sākums</title>
+<title>Jautājumi un atbildes</title>
 @stop
 @section('content')
 <div id="div_page_content">
@@ -44,7 +44,7 @@
         'placeholder'=>'Jautājums')) !!}<br>
         {!! Form::email('email', '', array('class'=>'form-control',
         'placeholder'=>'E-pasts'))!!}<br>            
-        {!! Form::submit('Pievienot jautājumu!', array('class'=>'btn btn-default' 'type' => 'button'))!!}
+        {!! Form::submit('Pievienot jautājumu!', array('class'=>'btn btn-default'))!!}
         {!! Form::close() !!}
     </div>
 </div>

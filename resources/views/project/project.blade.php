@@ -1,11 +1,11 @@
 @extends('master')
 @section('header')
-<title>Juridiskie pakalpojumi</title>
+<title>Projektu pieteikumi</title>
 @stop
 @section('content')
 <div id="div_page_content">
     <div class="left-content">
-        <h1>Juridiskie pakalpojumi</h1>
+        <h1>Projektu vadība</h1>
         <br>
         <br>
         <div id="par_div">
@@ -19,16 +19,13 @@
             @endforeach
         </div>
         @if (Auth::check())
-        <div id="new_paragraph" class="button legal">Jauns ieraksts</div>
+        <div id="new_paragraph" class="button project">Jauns ieraksts</div>
         @endif
     </div>
     <div class="right-content">
-        <h4>Dokumentu sagataves</h4>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.</p>
-        <ul>
-            <li><a href="#">Prasības pieteikums</a></li>
-            <li><a href="#">Testaments</a></li>
+        <h4>Jautājumi</h4>    
+            <li><a href="#">Kā izveidot prasības pieteikumu?</a></li>
+            <li><a href="#">Kā nodibināt uzņēmumu?</a></li>
         </ul>
     </div>
 </div>

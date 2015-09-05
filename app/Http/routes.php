@@ -48,9 +48,11 @@ Route::post('/answer/delete', 'answersController@destroy'); //new
 /* question selection ends */
 
 /* legal services */
-
 Route::get('/legal/', 'legalController@index');
-
 /* legal services ends */
 
+/* project managment */
+Route::get('/project_managment/', 'projectController@index');
+/* project managment ends */
 
+Route::get('/contact_us/', 'contactController@index');
