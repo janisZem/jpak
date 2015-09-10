@@ -10,4 +10,8 @@ class Questions extends Model {
         return $this->hasMany('App\Classif', 'id', 'cid')->distinct();
     }
 
+    public function tags() {
+        return $this->belongsToMany('App\Questions_tags', 'question_tags_rel', 'tid');
+    }
+
 }

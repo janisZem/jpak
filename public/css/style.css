@@ -275,7 +275,7 @@ hr{
 }
 
 #edit_p_textarea{
-    width:80%; 
+    width:80%;
     height:300px;
 }
 .edit-row{
@@ -293,7 +293,7 @@ hr{
 }
 .question-list-status{
     float: right;
-    margin-top: -50px;    
+    margin-top: -50px;
 }
 
 .question-id{
@@ -311,4 +311,35 @@ hr{
 .answer-delete{
     margin-top:-20px;
     float:right;
+}
+.autocomplite-list{
+    position: absolute;
+    display: block;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.autocomplite-list :hover{
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.autocomplite-list li {
+    padding-left: 20px;
 }

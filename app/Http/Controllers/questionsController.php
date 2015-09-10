@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Input;
-use DB;
 use App\Questions;
 use App\Classif;
 use App\Answers;
 use Auth;
 use App\Questions_tags;
+use App\Questions_tags_rel;
+use DB;
 
 class questionsController extends Controller {
 
@@ -61,12 +60,16 @@ class questionsController extends Controller {
         $data["question"] = Questions::with('question_classif')
                 ->where('id', $id)
                 ->first();
+        // print_r($data["question"]);
         /* clients can see only question with status 0002 */
         if (!Auth::check() && $data["question"]->status != '0002') {
             return redirect('/questions');
         }
         $data['answers'] = Answers::where('qid', $id)->get();
-        $data['question_tags'] = Questions_tags::all();
+        $data['tags'] = DB::table('questions_tags') //fix me :) use ORM
+                ->join('questions_tags_rel', 'questions_tags.id', '=', 'questions_tags_rel.tid')
+                ->where('questions_tags_rel.qid', '=', $id)
+                ->get();
         return view('questions/question', $data);
     }
 
@@ -107,10 +110,45 @@ class questionsController extends Controller {
         //return redirect("/question/$data->title/$data->id"); //maybe dynamic insert without refresh
     }
 
-  
     public function getTags() {
+        $r = '<ul class="autocomplite-list">';
+        if (Input::get("name") == "") {
+            return '<span class="autocomplite-list" >Nav pēc kā meklēt</span>';
+        }
+        $tags = Questions_tags::where('name', 'LIKE', '%' . Input::get("name") . '%')->get();
+        if (count($tags) == 0) {
+            return '<span class="autocomplite-list">Nekas netika atrasts </span>';
+        }
+        foreach ($tags as $tag) {
+            $r .= "<li onclick='QUESTIONS.TAGS.addRel($tag->id)' id='tag_id_$tag->id'>$tag->name</li>";
+        }
+        $r .='</ul>';
+        return $r;
+    }
 
-        Question_tags::all();
+    public function saveTag() {
+        if (Input::get("name") == "") {
+            return 'fail';
+        }
+        if (count(Questions_tags::where('name', Input::get("name"))->get()) > 0) {
+            return 'already in database';
+        }
+        $tag = new Questions_tags;
+        $tag->name = Input::get("name");
+        $tag->save();
+        return $tag->id;
+    }
+
+    public function saveRel() {
+        $rel = new Questions_tags_rel;
+        $rel->qid = Input::get("qid");
+        $rel->tid = Input::get("tid");
+        $rel->save();
+    }
+
+    public function deleteRel() {
+        $rel = Questions_tags_rel::where('qid', Input::get("qid"))->where('tid', Input::get("tid"));
+        $rel->delete();
     }
 
 }

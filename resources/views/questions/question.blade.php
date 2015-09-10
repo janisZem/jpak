@@ -47,8 +47,37 @@
         </div>
     </div>
     @if (Auth::check())
+    <hr>
     <h4>Jautājuma tēmas</h4>
-    <input type="text" id="add_tags_input">
+
+    @foreach($tags as $tag)
+    <div class="btn-group">
+        <button type="button" id="tag_{{$tag->id}}" class="btn btn-default">{{$tag->name}}</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a onclick="QUESTIONS.TAGS.deleteRel({{$tag->id}})">Noņemt tēmu</a></li>
+        </ul>
+    </div>
+    @endforeach
+    <hr>
+    <div class="input-group" id="question_tags_div">
+        <input id="add_tags_input" type="text"  class="form-control" placeholder="Meklēt un pievienot tēmas">
+        <div class="input-group-btn">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Iespējas
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a onclick="QUESTIONS.TAGS.save()">Pievienot jaunu</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a>Atcelt</a></li>
+            </ul>
+        </div>
+    </div>
+
+
     @endif
     <hr>
     <?php if (count($answers) != 0) { ?>
@@ -74,10 +103,10 @@
         {!! Form::open(array('url' => 'answer/store', 'method' => 'POST')) !!}
         {!! Form::textarea('answer', '', array('class'=>'form-control',
         'placeholder'=>'Atbilde')) !!}<br>
-        {!! Form::text('name', '', array('class'=>'form-control', 
+        {!! Form::text('name', '', array('class'=>'form-control',
         'size'=>'256',
         'placeholder'=>'Vārds'))!!}<br>
-        {!! Form::text('surname', '', array('class'=>'form-control', 
+        {!! Form::text('surname', '', array('class'=>'form-control',
         'size'=>'256',
         'placeholder'=>'Uzvards'))!!}<br>
         {!! Form::hidden('question_id', $question->id, array('type'=>'hidden'))!!}

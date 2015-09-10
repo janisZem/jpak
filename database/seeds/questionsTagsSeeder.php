@@ -15,11 +15,11 @@ class questionsTagsSeeder extends Seeder {
         DB::table('questions_tags')->insert([
             'name' => 'Juridiskās tiesības',
             'value' => '',
-            'code' => 'LEGAL_RIGHTS']);
+            'code' => '']);
         DB::table('questions_tags')->insert([
             'name' => 'Projektu vadība',
             'value' => '',
-            'code' => 'PROJECT_MANAGMENT']);
+            'code' => '']);
     }
 
 }

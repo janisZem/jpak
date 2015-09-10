@@ -12,8 +12,20 @@ var QUESTIONS = {
         $('.answer').children('.answer-content').mouseover(function (e) {
             QUESTIONS.ANSWERS.showDelete(e.target);
         });
-
-
+        $("#add_tags_input").keyup(function () {
+            $('.autocomplite-list').remove();
+            if ($(this).val() < 1) {
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: "../../questions/tags",
+                data: 'name=' + $(this).val() + '&_token=' + PAGE.token,
+                success: function (data) {
+                    $('#question_tags_div').append(data);
+                }
+            });
+        });
     },
     TITLE: {
         edit: function () {
@@ -31,7 +43,7 @@ var QUESTIONS = {
                     + '               <span class="caret"></span>'
                     + '           </button>'
                     + '           <ul class="dropdown-menu dropdown-menu-right">'
-                    + '               <li><a "class="h1-edit" onclick="QUESTIONS.TITLE.store()">Salgabāt</a></li>'
+                    + '               <li><a class="h1-edit" onclick="QUESTIONS.TITLE.store()">Salgabāt</a></li>'
                     + '               <li role="separator" class="divider"></li>'
                     + '               <li><a>Atcelt</a></li>'
                     + '           </ul>'
@@ -203,6 +215,50 @@ var QUESTIONS = {
                     if (data === "OK") {
                         $("#answer_" + id).remove();
                     }
+                }
+            }, "json");
+        }
+    },
+    TAGS: {
+        save: function () {
+            var ds = 'name=' + $('#add_tags_input').val()
+                    + '&_token=' + PAGE.token;
+            console.log(ds);
+            $.ajax({
+                type: "POST",
+                url: "../../questions/save_tag",
+                data: ds,
+                success: function (r) {
+                    QUESTIONS.TAGS.saveRel($('.question-id').text(), r);
+                }
+            }, "json");
+        },
+        saveRel: function (qid, tid) {
+            var ds = 'qid=' + qid
+                    + '&tid=' + tid
+                    + '&_token=' + PAGE.token;
+            $.ajax({
+                type: "POST",
+                url: "../../questions/save_rel",
+                data: ds,
+                success: function () {
+                    location.reload();
+                }
+            }, "json");
+        },
+        addRel: function (tag) {
+            QUESTIONS.TAGS.saveRel($('.question-id').text(), tag);
+        },
+        deleteRel: function (tag) {
+            var ds = 'qid=' + $('.question-id').text()
+                    + '&tid=' + tag
+                    + '&_token=' + PAGE.token;
+            $.ajax({
+                type: "POST",
+                url: "../../questions/delete_rel",
+                data: ds,
+                success: function () {
+                    location.reload();
                 }
             }, "json");
         }

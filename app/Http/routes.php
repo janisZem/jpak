@@ -41,10 +41,13 @@ Route::get('/question/new', 'questionsController@create');
 Route::post('/question/store', 'questionsController@store'); //new
 Route::post('/question/update', 'questionsController@update'); //update
 Route::get('/questions/admin', 'questionsController@admin');
+Route::post('/questions/tags', 'questionsController@getTags'); //find tag by name || AUTOCOMPLITE ||
+Route::post('/questions/save_tag', 'questionsController@saveTag'); //add new tag
+Route::post('/questions/save_rel', 'questionsController@saveRel'); //save question and tag relation
+Route::post('/questions/delete_rel', 'questionsController@deleteRel'); //save question and tag relation
 
 Route::post('/answer/store', 'answersController@store'); //new
-Route::post('/question/tags', 'answersController@getTags'); //find tag by name || AUTOCOMPLITE ||
-Route::post('/answer/delete', 'answersController@destroy'); //new
+Route::post('/answer/delete', 'answersController@destroy'); //delete
 /* question selection ends */
 
 /* legal services */
